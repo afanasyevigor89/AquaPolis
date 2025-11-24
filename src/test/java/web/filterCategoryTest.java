@@ -15,15 +15,18 @@ public class filterCategoryTest extends BaseTest {
 
     @BeforeEach
     public void prepared() {
-        open(baseUrl);
         basePage = new BasePage();
 
+        open(baseUrl);
+        basePage.allowCookie();
         basePage.openCatalog();
     }
 
     @Test
     public void filterCategory(){
         categoryPage = new CategoryPage();
+
         categoryPage.openCategory();
+
     }
 }

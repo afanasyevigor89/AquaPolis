@@ -10,9 +10,11 @@ public class BasePage {
     protected SelenideElement headerLogo = $("a[name='Aquapolis Logo']");
     protected SelenideElement searchField = $("#search-form-with-menu");
     protected SelenideElement searchDropDown = $(".app-search-dropdown");
-    protected SelenideElement categoryMenuButtom = $("#app-header__navigation-activator");
+    protected SelenideElement categoryMenuButton = $("#app-header__navigation-activator");
     protected SelenideElement categoryDropMenu = $(".app-navigation-desktop-menu__content-wrapper");
     protected SelenideElement trubiCategory = $("a[href='/truby-i-fitingi']");
+    protected SelenideElement cookieNotice = $(".c-cookie-notice__wrapper");
+    protected SelenideElement cookieNoticeButton = $("button[class$='c-cookie-notice__btn']");
 
     @Step ("Выполняем поиск по запросу {query}")
     public void search (String query) {
@@ -27,9 +29,15 @@ public class BasePage {
 
     @Step("Переход на страницу категории")
     public void openCatalog () {
-        categoryMenuButtom.shouldBe(visible).click();
+        categoryMenuButton.shouldBe(visible).click();
         categoryDropMenu.shouldBe(visible);
         trubiCategory.shouldBe(visible).click();
+    }
+
+    @Step("Согласие на сбор кук")
+    public void allowCookie() {
+        cookieNotice.shouldBe(visible);
+        cookieNoticeButton.shouldBe(visible).click();
     }
 
 }
