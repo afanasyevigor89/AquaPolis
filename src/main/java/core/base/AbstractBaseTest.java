@@ -1,6 +1,5 @@
 package core.base;
 
-import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -27,7 +26,7 @@ public abstract class AbstractBaseTest {
         String configFileName = "application-" + environment + ".properties";
 
         Properties properties = new Properties();
-        try (InputStream input = BaseTest.class.getClassLoader().getResourceAsStream(configFileName)) {
+        try (InputStream input = BasePage.class.getClassLoader().getResourceAsStream(configFileName)) {
             if (input == null) {
                 throw new IllegalAccessException("Configuration file not found: " + configFileName);
             }
