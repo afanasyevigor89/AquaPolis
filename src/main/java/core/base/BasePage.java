@@ -3,6 +3,8 @@ package core.base;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -36,7 +38,7 @@ public class BasePage {
 
     @Step("Согласие на сбор кук")
     public void allowCookie() {
-        cookieNotice.shouldBe(visible);
+        cookieNotice.shouldBe(visible, Duration.ofSeconds(5));
         cookieNoticeButton.shouldBe(visible).click();
     }
 
