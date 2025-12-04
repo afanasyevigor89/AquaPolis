@@ -6,7 +6,7 @@ import io.qameta.allure.Step;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.*;
 
 public class BasePage {
     protected SelenideElement headerLogo = $("a[name='Aquapolis Logo']");
@@ -17,6 +17,9 @@ public class BasePage {
     protected SelenideElement trubiCategory = $("a[href='/truby-i-fitingi']");
     protected SelenideElement cookieNotice = $(".c-cookie-notice__wrapper");
     protected SelenideElement cookieNoticeButton = $("button[class$='c-cookie-notice__btn']");
+    protected SelenideElement popUpAddingProductToCart = $x("//div[contains(@class, 'Vue-Toastification__toast')]//div[contains(text(), 'Товар добавлен в корзину')]");
+    protected SelenideElement countProductsInCart = $("a[name='Ваша корзина'] .v-badge__badge");
+
 
     @Step ("Выполняем поиск по запросу {query}")
     public void search (String query) {
@@ -38,7 +41,7 @@ public class BasePage {
 
     @Step("Согласие на сбор кук")
     public void allowCookie() {
-        cookieNotice.shouldBe(visible, Duration.ofSeconds(5));
+        cookieNotice.shouldBe(visible, Duration.ofSeconds(3000));
         cookieNoticeButton.shouldBe(visible).click();
     }
 

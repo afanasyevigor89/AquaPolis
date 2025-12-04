@@ -58,6 +58,6 @@ public class CategoryPage extends BasePage {
 
     @Step("Применение сортировки по возрастанию")
     public void applySortAsc () {
-        buttonSortAsc.shouldBe().click();
+        buttonSortAsc.shouldBe(visible).click();
     }
 }

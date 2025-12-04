@@ -22,6 +22,9 @@ dependencies {
 
     // Selenide
     implementation 'com.codeborne:selenide:7.12.1'
+
+    // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+    implementation("io.github.bonigarcia:webdrivermanager:6.3.3")
 }
 
 test {
