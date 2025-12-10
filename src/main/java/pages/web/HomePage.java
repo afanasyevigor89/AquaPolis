@@ -16,7 +16,7 @@ public class HomePage extends BasePage {
     protected SelenideElement promoCategoryHomePage = $(".app-index-page__categories-list");
     protected SelenideElement buttonAddProductToCart = $x("(//button[.//span[text()='В корзину']])[1]");
     protected ElementsCollection paginationBullet = $$(".flicking-pagination-bullet");
-    protected SelenideElement addProductNotif = $("div[role='alert']");
+    protected SelenideElement addProductNotif = $("div[class='Vue-Toastification__toast-body']");
     protected SelenideElement countProductInCart = $("a[href='/checkout-spa'] .v-badge__badge span");
 
     @Step("Добавление товара в корзину")
@@ -44,6 +44,6 @@ public class HomePage extends BasePage {
 
     @Step("Получение нотифа после добавления товара в корзину")
     public String getMessageText() {
-        return addProductNotif.should(exist, Duration.ofSeconds(5)).getText();
+        return addProductNotif.shouldBe(visible).getText();
     }
 }
