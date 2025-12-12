@@ -29,10 +29,9 @@ public class HomePageTests extends BaseTest {
         basePage.allowCookie();// закрываем плашку с cookie
 
     }
-    @Story("Пользователь может пролистать баннер")
-    @DisplayName("TC-003: Прокручивание слайдера с баннерами свайпом")
-    @Test
+    @Story("TC-003: Пользователь может пролистать баннер")
     @Severity(SeverityLevel.NORMAL)
+    @Test
     public void swipeHomePageBannerTest() {
 
         homePage.swipeBanner();
@@ -40,8 +39,7 @@ public class HomePageTests extends BaseTest {
         assertTrue(homePage.verifyBulletIsActive(4), "Баннер слайдера не прокрутился");
     }
 
-    @Story("Пользователь может добавить товар в корзину из слайдера Новинки")
-    @DisplayName("TC-004: Добавление товара в корзину из слайдера Новинки")
+    @Story("TC-004: Пользователь может добавить товар в корзину из слайдера Новинки")
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void addProductToCartFromHomePage(){

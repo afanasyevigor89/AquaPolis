@@ -4,7 +4,11 @@ import core.base.BasePage;
 import core.base.BaseTest;
 import data.TestData;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.web.AccountPage;
 import pages.web.LoginPage;
@@ -35,6 +39,8 @@ public class LoginPageTests extends BaseTest {
         basePage.openLoginPage();
     }
 
+    @Story("TC-005: Пользователь может авторизоваться")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     public void loginByEmail() throws InterruptedException {
         AccountPage accountPage = new AccountPage();
@@ -48,6 +54,8 @@ public class LoginPageTests extends BaseTest {
 
     }
 
+    @Story("TC-006: Валидация Email при авторизации")
+    @Severity(SeverityLevel.MINOR)
     @Test
     public void loginWithWrongEmail() {
 
@@ -59,6 +67,8 @@ public class LoginPageTests extends BaseTest {
         assertEquals(expectEmailMessageError, actualEmailMessageError, "Сообщение об ошибке не совпадает");
     }
 
+    @Story("TC-007: Ошибка при вводе некорректного пароля")
+    @Severity(SeverityLevel.MINOR)
     @Test
     public void loginWithWrongPassword() {
 

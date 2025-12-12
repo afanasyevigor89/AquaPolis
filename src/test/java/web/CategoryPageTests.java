@@ -14,6 +14,7 @@ import pages.web.CategoryPage;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Feature("Страница категории")
 public class CategoryPageTests extends BaseTest {
     private static CategoryPage categoryPage;
 
@@ -28,11 +29,9 @@ public class CategoryPageTests extends BaseTest {
         categoryPage.openCategory();
     }
 
-    @Test
-    @DisplayName("TC-001: Проверка фильтрации по цене")
-    @Feature("Страница категории")
-    @Story("Пользователь может фильтровать товары по цене")
+    @Story("TC-001: Пользователь может фильтровать товары по цене")
     @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void filterByPriceTest(){
         categoryPage.setMaxPrice(5000); //фильтруем по максимальной цене товара 5000 руб.
         sleep(3000);
@@ -40,11 +39,9 @@ public class CategoryPageTests extends BaseTest {
         assertTrue(categoryPage.areAllPricesLessOrEqual(5000), "После фильтрации остались товары дороже 5000");
     }
 
-    @Test
-    @DisplayName("TC-002: Проверка сортировки по цене")
-    @Feature("Страница категории")
-    @Story("Пользователь может сортировать товары по цене")
+    @Story("TC-002: Пользователь может сортировать товары по цене")
     @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void cortByPriceAsc(){
         categoryPage.applySortAsc();
         sleep(3000);
