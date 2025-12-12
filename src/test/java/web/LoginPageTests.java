@@ -49,10 +49,9 @@ public class LoginPageTests extends BaseTest {
     }
 
     @Test
-    public void loginWithWrongEmail() throws InterruptedException {
+    public void loginWithWrongEmail() {
 
         loginPage.loginWithCredentials(wrongLogin, userPass);
-        sleep(2000);
         assertTrue(loginPage.isErrorLoginMessageVisible(), "Сообщение об ошибке не отображается");
 
         String expectEmailMessageError = "Пожалуйста, введите действительный адрес электронной почты.";
@@ -61,10 +60,9 @@ public class LoginPageTests extends BaseTest {
     }
 
     @Test
-    public void loginWithWrongPassword() throws InterruptedException {
+    public void loginWithWrongPassword() {
 
         loginPage.loginWithCredentials(userLogin, wrongPass);
-        sleep(2000);
         assertTrue(loginPage.isErrorNotifLoginMessageVisible(), "Сообщение об ошибке не отображается");
 
         String expectLoginMessage = "Неверный логин или пароль.";
