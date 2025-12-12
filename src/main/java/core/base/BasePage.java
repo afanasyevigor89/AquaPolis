@@ -19,6 +19,7 @@ public class BasePage {
     protected SelenideElement cookieNoticeButton = $("button[class$='c-cookie-notice__btn']");
     protected SelenideElement popUpAddingProductToCart = $x("//div[contains(@class, 'Vue-Toastification__toast')]//div[contains(text(), 'Товар добавлен в корзину')]");
     protected SelenideElement countProductsInCart = $("a[name='Ваша корзина'] .v-badge__badge");
+    protected SelenideElement buttonLogin = $("a[href='/customer/login']");
 
 
     @Step ("Выполняем поиск по запросу {query}")
@@ -44,5 +45,11 @@ public class BasePage {
         cookieNotice.shouldBe(visible, Duration.ofSeconds(3000));
         cookieNoticeButton.shouldBe(visible).click();
     }
+
+    @Step("Клик на кнопку Войти")
+    public void openLoginPage() {
+        buttonLogin.shouldBe(visible).click();
+    }
+
 
 }

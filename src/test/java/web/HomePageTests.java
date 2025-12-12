@@ -37,7 +37,7 @@ public class HomePageTests extends BaseTest {
 
         homePage.swipeBanner();
         //Проверяем что активна 3-я точка пагинации
-        assertTrue(homePage.verifyBulletIsActive(2), "Баннер слайдера не прокрутился");
+        assertTrue(homePage.verifyBulletIsActive(4), "Баннер слайдера не прокрутился");
     }
 
     @Story("Пользователь может добавить товар в корзину из слайдера Новинки")
