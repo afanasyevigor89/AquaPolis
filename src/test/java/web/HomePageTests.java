@@ -14,7 +14,7 @@ import pages.web.HomePage;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+@Feature("Главная страница")
 public class HomePageTests extends BaseTest {
     private static HomePage homePage;
     private static BasePage basePage;
@@ -29,10 +29,9 @@ public class HomePageTests extends BaseTest {
         basePage.allowCookie();// закрываем плашку с cookie
 
     }
-    @Test
-    @DisplayName("TC-003: Прокручивание слайдера с баннерами свайпом")
-    @Feature("Главная страница")
     @Story("Пользователь может пролистать баннер")
+    @DisplayName("TC-003: Прокручивание слайдера с баннерами свайпом")
+    @Test
     @Severity(SeverityLevel.NORMAL)
     public void swipeHomePageBannerTest() {
 
@@ -41,11 +40,10 @@ public class HomePageTests extends BaseTest {
         assertTrue(homePage.verifyBulletIsActive(2), "Баннер слайдера не прокрутился");
     }
 
-    @Test
-    @DisplayName("TC-004: Добавление товара в корзину из слайдера Новинки")
-    @Feature("Главная страница")
     @Story("Пользователь может добавить товар в корзину из слайдера Новинки")
+    @DisplayName("TC-004: Добавление товара в корзину из слайдера Новинки")
     @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void addProductToCartFromHomePage(){
         executeJavaScript("window.scrollTo(0, 600)");
         homePage.addProductToCart();

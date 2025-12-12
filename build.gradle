@@ -18,7 +18,7 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.27.6'
 
     // Allure
-    implementation 'io.qameta.allure:allure-junit5:2.31.0'
+    implementation 'io.qameta.allure:allure-junit5:2.30.0'
 
     // Selenide
     implementation 'com.codeborne:selenide:7.12.1'
