@@ -26,6 +26,7 @@ public class CategoryPage extends BasePage {
     public void openCategory() {
         landingCategories.shouldBe(visible);
         secondCategory.shouldBe(visible).click();
+        sleep(2000);
     }
 
     @Step("Применение фильтра по макс. цене = {productPrice}")

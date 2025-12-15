@@ -52,7 +52,6 @@ public class CategoryPageTests extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void productPagination(){
-        sleep(2000);
         categoryPage.scrollAndLoadMoreProducts();
         //executeJavaScript("window.scrollTo(0, 1000)");//прокручиваем страницы для загрузки товаров на 2-й странице
         //sleep(3000);
