@@ -9,6 +9,6 @@ public class BaseTest extends AbstractBaseTest{
     protected void configure() {
         WebDriverManager.chromedriver().setup();
         Configuration.browser = "chrome";
-        Configuration.browserSize = "1920x900";
+        Configuration.browserSize = "1920x1000";
     }
 }

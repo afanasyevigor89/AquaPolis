@@ -7,11 +7,11 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.web.CategoryPage;
 
 import static com.codeborne.selenide.Selenide.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Feature("Страница категории")
@@ -46,5 +46,20 @@ public class CategoryPageTests extends BaseTest {
         categoryPage.applySortAsc();
         sleep(3000);
         assertTrue(categoryPage.arePricesSortedAscending(), "Товары не отсортированы");
+    }
+
+    @Story("TC-008: Проверка кол-ва элементов на странице после подгрузки 2-й страницы")
+    @Severity(SeverityLevel.CRITICAL)
+    @Test
+    public void productPagination(){
+        sleep(2000);
+        categoryPage.scrollAndLoadMoreProducts();
+        //executeJavaScript("window.scrollTo(0, 1000)");//прокручиваем страницы для загрузки товаров на 2-й странице
+        //sleep(3000);
+        int expectedCount = 40;
+        int actualCount = categoryPage.getProductCardsCount();
+
+        assertThat(actualCount).as("Количество товаров после прокрутки должно быть: " + expectedCount)
+                .isEqualTo(expectedCount);
     }
 }
