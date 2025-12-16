@@ -34,17 +34,17 @@ public class CategoryPageTests extends BaseTest {
     @Test
     public void filterByPriceTest(){
         categoryPage.setMaxPrice(5000); //фильтруем по максимальной цене товара 5000 руб.
-        sleep(3000);
-        executeJavaScript("window.scrollTo(0, 1000)"); //прокручиваем страницы для подгрузки следующей страницы
+        sleep(1000);
+        categoryPage.scrollAndLoadMoreProducts();
         assertTrue(categoryPage.areAllPricesLessOrEqual(5000), "После фильтрации остались товары дороже 5000");
     }
 
-    @Story("TC-002: Пользователь может сортировать товары по цене")
+    @Story("TC-002: Пользователь может отсортировать товары по цене")
     @Severity(SeverityLevel.CRITICAL)
     @Test
     public void cortByPriceAsc(){
         categoryPage.applySortAsc();
-        sleep(3000);
+        sleep(1000);
         assertTrue(categoryPage.arePricesSortedAscending(), "Товары не отсортированы");
     }
 
@@ -53,8 +53,6 @@ public class CategoryPageTests extends BaseTest {
     @Test
     public void productPagination(){
         categoryPage.scrollAndLoadMoreProducts();
-        //executeJavaScript("window.scrollTo(0, 1000)");//прокручиваем страницы для загрузки товаров на 2-й странице
-        //sleep(3000);
         int expectedCount = 40;
         int actualCount = categoryPage.getProductCardsCount();
 

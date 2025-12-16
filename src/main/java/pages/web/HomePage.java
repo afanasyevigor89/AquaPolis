@@ -27,7 +27,7 @@ public class HomePage extends BasePage {
     @Step("Пролистывание баннера свайпом")
     public void swipeBanner() {
         bannerHomePage.shouldBe(visible);
-        actions().dragAndDropBy(bannerHomePage, 50, 0).perform(); // свайп вправо на 100px
+        actions().dragAndDropBy(bannerHomePage, 50, 0).perform(); // свайп вправо на 50px
     }
 
     @Step("Проверка активной точки пагинации баннера")
