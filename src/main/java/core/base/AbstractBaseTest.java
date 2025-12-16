@@ -1,5 +1,7 @@
 package core.base;
 
+import com.codeborne.selenide.Configuration;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -10,16 +12,23 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public abstract class AbstractBaseTest {
 
-    // Базовый URL для веб-тестов
     protected static String baseUrl;
+    protected static String validEmail;
+    protected static String validPassword;
+    protected static String invalidEmail;
 
     @BeforeEach
     public void setUp() {
         baseUrl = determineBaseUrl();
-        configure();
+        applyCommonConfiguration();
+        loadTestData();
     }
 
-    protected  abstract void configure(); //Метод для настройки среды
+    protected void applyCommonConfiguration() {
+        WebDriverManager.chromedriver().setup();
+        Configuration.browser = "chrome";
+        Configuration.browserSize = "1920x1000";
+    }
 
     private static String determineBaseUrl() {
         String environment = System.getProperty("env", "test");
@@ -37,9 +46,29 @@ public abstract class AbstractBaseTest {
         return properties.getProperty("baseUrl");
     }
 
+    private void loadTestData() {
+        String environment = System.getProperty("env", "test");
+        String configFileName = "application-" + environment + ".properties";
+
+        Properties properties = new Properties();
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream(configFileName)) {
+            if (input != null) {
+                properties.load(input);
+
+                // Загружаем тестовые данные
+                validEmail = properties.getProperty("validEmail");
+                validPassword = properties.getProperty("validPassword");
+                invalidEmail = properties.getProperty("invalidEmail");
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка загрузки тестовых данных: " + e.getMessage());
+        }
+    }
+
     @AfterEach
     public void tearDown() {
-        // Закрываем веб драйвер после каждого теста
         closeWebDriver();
     }
+
+
 }

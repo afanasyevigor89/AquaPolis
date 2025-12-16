@@ -1,35 +1,26 @@
 package web;
 
+import core.base.AbstractBaseTest;
 import core.base.BasePage;
-import core.base.BaseTest;
-import data.TestData;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
+import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.web.AccountPage;
 import pages.web.LoginPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static java.lang.Thread.sleep;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static data.TestData.Credentials.*;
+import static io.qameta.allure.Allure.step;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Feature("Страница авторизации")
-public class LoginPageTests extends BaseTest {
+class LoginPageTests extends AbstractBaseTest {
 
     private static LoginPage loginPage;
 
-    String userLogin = TestData.Credentials.VALID_EMAIL;
-    String userPass = TestData.Credentials.VALID_PASSWORD;
-    String wrongLogin = TestData.Credentials.INVALID_EMAIL;
-    String wrongPass = TestData.Credentials.INVALID_PASSWORD;
-
     @BeforeEach
-    public void prepared() {
+    void prepared() {
         loginPage = new LoginPage();
 
         open(baseUrl);
@@ -42,11 +33,10 @@ public class LoginPageTests extends BaseTest {
     @Story("TC-005: Пользователь может авторизоваться")
     @Severity(SeverityLevel.CRITICAL)
     @Test
-    public void loginByEmail() throws InterruptedException {
+    void loginByEmail(){
         AccountPage accountPage = new AccountPage();
 
-        loginPage.loginWithCredentials(userLogin, userPass);
-        sleep(3000);
+        loginPage.loginWithCredentials(validEmail, validPassword);
 
         String expectedPageTitle = "МОЙ КАБИНЕТ";
         String actualPageTitle = accountPage.getPageTitle();
@@ -57,9 +47,9 @@ public class LoginPageTests extends BaseTest {
     @Story("TC-006: Валидация Email при авторизации")
     @Severity(SeverityLevel.MINOR)
     @Test
-    public void loginWithWrongEmail() {
+    void loginWithWrongEmail() {
 
-        loginPage.loginWithCredentials(wrongLogin, userPass);
+        loginPage.loginWithCredentials(invalidEmail, validPassword);
         assertTrue(loginPage.isErrorLoginMessageVisible(), "Сообщение об ошибке не отображается");
 
         String expectEmailMessageError = "Пожалуйста, введите действительный адрес электронной почты.";
@@ -70,14 +60,23 @@ public class LoginPageTests extends BaseTest {
     @Story("TC-007: Ошибка при вводе некорректного пароля")
     @Severity(SeverityLevel.MINOR)
     @Test
-    public void loginWithWrongPassword() {
+    void loginWithWrongPassword() {
+        EasyRandom easyRandom = new EasyRandom();
 
-        loginPage.loginWithCredentials(userLogin, wrongPass);
-        assertTrue(loginPage.isErrorNotifLoginMessageVisible(), "Сообщение об ошибке не отображается");
+        String randomWrongPass = easyRandom.nextObject(String.class)
+                .replaceAll("[^a-zA-Z0-9]", "")
+                .substring(0, Math.min(15, 10));
+
+        loginPage.loginWithCredentials(validEmail, randomWrongPass);
 
         String expectLoginMessage = "Неверный логин или пароль.";
         String actualLoginMessage = loginPage.getErrorNotifLoginMessage();
-        assertEquals(expectLoginMessage, actualLoginMessage, "Сообщение от ошибке не совпадает");
-    }
 
+        assertAll(() -> {
+            step("Прверка отображения сообщения об ошибке", () ->
+                    assertTrue(loginPage.isErrorNotifLoginMessageVisible(), "Сообщение об ошибке не отображается"));
+            step("Проверка текста сообщения об ошибке", () ->
+                    assertEquals(expectLoginMessage, actualLoginMessage, "Сообщение от ошибке не совпадает"));
+        });
+    }
 }

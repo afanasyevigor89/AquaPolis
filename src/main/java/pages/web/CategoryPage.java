@@ -79,7 +79,6 @@ public class CategoryPage extends BasePage {
 
     @Step("Дождаться появления новых товаров после прокрутки")
     private void waitForNewProducts(int initialCount) {
-        // Ждем максимум 10 секунд
         long endTime = System.currentTimeMillis() + 10000;
 
         while (System.currentTimeMillis() < endTime) {
@@ -88,8 +87,6 @@ public class CategoryPage extends BasePage {
             if (currentCount > initialCount) {
                 return;
             }
-
-            sleep(500);
         }
 
         throw new AssertionError("Новые товары не загрузились после прокрутки");
