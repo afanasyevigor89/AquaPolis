@@ -44,7 +44,7 @@ class CategoryPageTests extends AbstractBaseTest {
     @Story("TC-002: Пользователь может отсортировать товары по цене")
     @Severity(SeverityLevel.CRITICAL)
     @Test
-    void cortByPriceAsc(){
+    void sortByPriceAsc(){
         categoryPage.applySortAsc();
         with().pollInSameThread().await().atMost(1000, MILLISECONDS).pollInterval(200, MILLISECONDS).until(() -> categoryPage.arePricesSortedAscending());
         assertTrue(categoryPage.arePricesSortedAscending(), "Товары не отсортированы");

@@ -10,7 +10,6 @@ import pages.web.AccountPage;
 import pages.web.LoginPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static data.TestData.Credentials.*;
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.*;
 
