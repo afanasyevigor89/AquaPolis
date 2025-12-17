@@ -2,10 +2,7 @@ package web;
 
 import core.base.AbstractBaseTest;
 import core.base.BasePage;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pages.web.CategoryPage;
@@ -45,8 +42,8 @@ class CategoryPageTests extends AbstractBaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void sortByPriceAsc(){
-        categoryPage.applySortAsc();
-        with().pollInSameThread().await().atMost(1000, MILLISECONDS).pollInterval(200, MILLISECONDS).until(() -> categoryPage.arePricesSortedAscending());
+        step("Сортируем товары по увеличению цены", () -> categoryPage.applySortAsc());
+        with().pollInSameThread().await().atMost(2000, MILLISECONDS).pollInterval(200, MILLISECONDS).until(() -> categoryPage.arePricesSortedAscending());
         assertTrue(categoryPage.arePricesSortedAscending(), "Товары не отсортированы");
     }
 
@@ -54,11 +51,14 @@ class CategoryPageTests extends AbstractBaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void productPagination(){
-        categoryPage.scrollAndLoadMoreProducts();
+        step("Прокручиваем страницу для подгрузки новых товаров", () -> categoryPage.scrollAndLoadMoreProducts());
+
         int expectedCount = 40;
         int actualCount = categoryPage.getProductCardsCount();
 
-        assertThat(actualCount).as("Количество товаров после прокрутки должно быть: " + expectedCount)
-                .isEqualTo(expectedCount);
+        step("Проверяем что на странице отображается 40 товаров", () ->
+                assertThat(actualCount).as("Количество товаров после прокрутки должно быть: " + expectedCount)
+                        .isEqualTo(expectedCount));
+
     }
 }

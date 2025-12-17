@@ -12,6 +12,7 @@ import pages.web.HomePage;
 
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Feature("Главная страница")
@@ -48,12 +49,14 @@ class HomePageTests extends AbstractBaseTest {
         homePage.addProductToCart();
 
         String expectMessage = "Товар добавлен в корзину";
-        String actualMessage = homePage.getMessageText();
+        String actualMessage = basePage.getMessageText();
+        String actualCount = basePage.getCountProductInHeader();
         assertAll(() -> {
             step("Проверка нотифа добавления товара в корзину", () ->
                     assertEquals(expectMessage, actualMessage, "Текст сообщения не совпадает"));
             step("Проверка изменения кол-ва товаров в корзину в хэдере", () ->
-                    assertTrue(homePage.verifyCountProductInHeader(1), "Кол-во товаров в хэдере указано неверно"));
+                    assertThat(actualCount).as("Количество товаров должно быть 1")
+                            .isEqualTo("1"));
 
         });
 
